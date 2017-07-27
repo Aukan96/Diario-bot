@@ -1,0 +1,51 @@
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Chatbot</title>
+
+    <!-- Bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="http://code.jquery.com/jquery-2.2.0.min.js"> </script> 
+
+  </head>
+  <body style="background:#F5F5F5;">
+  {% from "_macro.html" import render_field %}
+    <div class="container">
+        <div class="row">
+            <h2>Iniciar Sesión</h2>
+            <div class="col-md-12 jumbotron">
+                <form name="login" action="/" role="form" method="POST">
+                  <div class="form-group">
+                    {{ render_field(form.username, class="form-control", placeholder="Nombre de usuario") }}
+                  </div>
+                  <div class="form-group">
+                    {{ render_field(form.password, class="form-control", placeholder="Escribe tu password") }}
+                  </div>
+				            <button type="submit" class="btn btn-primary">Entrar</button>
+                </form>
+			<p class="control"> </p>
+			<p class="control"><a href="/registro" class="button is-primary is-outlined"><span>Si no estas registrado, registrate aquí</span>
+		    </a>
+			  </p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-12">
+                <hr />
+                <p>DBC</p>
+                <p>Version 1.0.0.</p>
+            </div>
+        </div>
+        
+    </div>
+	
+  </body>
+</html>
+{% endblock %}

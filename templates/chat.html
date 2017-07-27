@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Diario BOT</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+     <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>	-->
+	<script src="http://code.jquery.com/jquery-2.2.0.min.js"> </script> 	
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.slim.js"></script>
+	  
+	  	<style type="text/css">
+		<!--
+		.Estilo1 {font-size: 18px}
+		-->
+		</style>
+		<style>
+          .est_img {
+            height: 150px;
+			margin: 2px 2px 0 0;
+          }
+        </style>
+    					
+	<script type="text/javascript" charset="utf-8">
+	
+       $(document).ready(function(){
+            namespace = '/ask';			
+			var socket = io.connect('http://' + document.domain + ':' + location.port + namespace);
+			socket.on('response', function(msg) {
+                $('#nombre').append('<br>' + $('<div/>').text('Diario BOT dice: ' + msg.data).html());
+				
+            });
+			 /**/
+            $('form#emit').submit(function(event) {
+                socket.emit('message', {data: '{{username}}:'+$('#emit_data').val()});
+                $('#nombre').append('<br>' + $('<div/>').text('{{username}}: ' + $('#emit_data').val()).html());				
+ 				$('#emit_data').val("");				
+				return false;
+            });
+        });
+    </script>
+	</head>	
+
+
+ 	<body style="background:#F5F5F5;">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8">
+					<h1>Diario BOT </h1>
+					<p>Sistema de conversación	</p>
+				</div>
+				<div class="col-md-4">
+					</br> 
+					<p align="right">Bienvenido(a):<b> {{username}} </b> |
+					<a href="/cerrar" class="button is-primary is-outlined">Cerrar Sesión</a>	|
+					<br><a href="/export" class="button is-primary is-outlined">Exportar conversacion</a></p>
+				</div>
+			</div>
+	
+			<div class="row">
+				<div class="col-md-8" style="border:1px solid #E1E1E8;height:400px; width:100%;overflow:scroll;background:#fff;"> <p>
+					<div class="alert alert-success">	
+					    <div class="container">								
+								<div class="message-body" id='nombre'/></div>	
+
+						</div>
+					</div>
+				
+			</div>
+
+			<div class="row">
+				<div class="col-md-8">				
+					<form id="emit" method="post" action='#'>				
+						<br><p align="center">
+						  <textarea  class="input" style="height:100px;width:650px;"  type="text" name="emit_data" id="emit_data" placeholder="Escribe tu mensaje"></textarea>												
+						  <button type="submit" style="height:100px;width:100px;" class="btn btn-success pull-right">Enviar</button></br>	
+						 	</p>
+				  	</form> 
+					</form>
+					
+					
+				 <form id="emit_imagen" action="#" method="post" enctype="multipart/form-data">
+					<input type="file" name="fileToUpload" id="fileToUpload" accept="image/*" class="btn btn-success pull-right">
+				</form>
+																		  
+				</div>
+			</div>
+			
+         
+		
+		</div>
+	</body>
+</html>
